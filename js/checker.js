@@ -59,6 +59,12 @@
       tooltip_email: function() {
         return 'This is not a valid email.'
       },
+      validate_url: function() {
+        return this.$el.val().match(/^((ftp|http|https):\/\/)?(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?$/);
+      },
+      tooltip_url: function() {
+        return 'This is not a valid url.'
+      },
       tooltip_required: function() {
         return 'This is a required field.'
       },
