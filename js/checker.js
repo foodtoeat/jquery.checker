@@ -29,6 +29,10 @@
           validate = $.proxy(this['validate_' + type], this),
           is_valid = (validate ? validate() : true);
 
+        if (this.disabled) {
+          return;
+        }
+
         if (!is_valid) {
           this.invalid_reason = type;
         }
@@ -67,14 +71,23 @@
       },
       validate_float: function() {
         return this.$el.val().match(/^[0-9]*((\.|,)[0-9]+)?$/);
-      }
+      },
       tooltip_float: function() {
         return 'This is not a valid number.'
       },
       tooltip_required: function() {
         return 'This is a required field.'
       },
-      validate_on_init: true
+      validate_on_init: true,
+      disable: function() {
+        this.valid_callback();
+        this.disabled = true;
+      },
+      enable: function() {
+        this.disabled = false;
+        this.validate();
+      },
+      disabled: false
     },
     Checker = function(element, opts) {
       var
