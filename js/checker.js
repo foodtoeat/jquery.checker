@@ -65,6 +65,12 @@
       tooltip_url: function() {
         return 'This is not a valid url.'
       },
+      validate_float: function() {
+        return this.$el.val().match(/^[0-9]*((\.|,)[0-9]+)?$/);
+      }
+      tooltip_float: function() {
+        return 'This is not a valid number.'
+      },
       tooltip_required: function() {
         return 'This is a required field.'
       },
