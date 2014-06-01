@@ -52,7 +52,8 @@
       required: false,
       type: null,
       validate_tel: function() {
-        return this.$el.val().match(/[0-9]/g).length >= 10;
+        var matches = this.$el.val().match(/[0-9]/g)
+        return matches && matches.length >= 10;
       },
       tooltip_tel: function() {
         return 'Telephone numbers must be at least ten digits.'
@@ -74,6 +75,18 @@
       },
       tooltip_float: function() {
         return 'This is not a valid number.'
+      },
+      validate_account_number: function() {
+        return this.$el.val().match(/^\w{1,17}$/);
+      },
+      tooltip_account_number: function() {
+        return 'This is not an account number.'
+      },
+      validate_routing_number: function() {
+        return this.$el.val().replace(/ /g,'').match(/^((0[0-9])|(1[0-2])|(2[1-9])|(3[0-2])|(6[1-9])|(7[0-2])|80)([0-9]{7})$/);
+      },
+      tooltip_routing_number: function() {
+        return 'This is not a routing number.'
       },
       tooltip_required: function() {
         return 'This is a required field.'
