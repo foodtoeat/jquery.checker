@@ -109,7 +109,7 @@
 
       self.$el = $(element);
 
-      for (option_key in defaults) {
+      for (option_key in opts) {
         self[option_key] = opts[option_key]
       }
 
