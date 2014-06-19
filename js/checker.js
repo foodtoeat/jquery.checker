@@ -6,10 +6,9 @@
  * For the full copyright and license information, please view the
  * LICENSE file that was distributed with this source code.
  */
+'use strict';
 
 (function($, window, document, undefined) {
-  'use strict';
-
   var
     defaults = {
       invalid_class: 'checker-invalid',
@@ -26,26 +25,22 @@
       validate: function() {
         var
           type = $.proxy(this.get_type, this)(),
-          validate = $.proxy(this['validate_' + type], this),
-          is_valid = (validate ? validate() : true);
+          validate = $.proxy(this['validate_' + type], this);
+
+        delete this.invalid_reason;
+        $.proxy(this.valid_callback, this)();
 
         if (this.disabled) {
-          return;
+          return
         }
 
-        if (!is_valid) {
-          this.invalid_reason = type;
-        }
         if (this.required && !this.$el.val()) {
           this.invalid_reason = 'required';
-          is_valid = false;
-        } else if (!this.required && !this.$el.val()) {
-          is_valid = true;
+        } else if (validate ? !validate() : false) {
+          this.invalid_reason = type;
         }
 
-        if (is_valid) {
-          $.proxy(this.valid_callback, this)();
-        } else {
+        if (this.invalid_reason) {
           $.proxy(this.invalid_callback, this)();
         }
       },
@@ -119,15 +114,13 @@
   Checker.prototype = {
     constructor: Checker,
     _init: function() {
-      var
-        self = this,
-        type = $.proxy(self.get_type, self)();
+      var self = this;
 
-      this.$el.on('change', function() {
+      self.$el.on('change', function() {
         $.proxy(self.validate, self)();
       });
 
-      if (this.validate_on_init) {
+      if (self.validate_on_init) {
         $.proxy(self.validate, self)();
       };
     },
