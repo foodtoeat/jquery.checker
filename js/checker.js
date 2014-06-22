@@ -36,7 +36,7 @@
 
         if (this.required && !this.$el.val()) {
           this.invalid_reason = 'required';
-        } else if (validate ? !validate() : false) {
+        } else if (this.$el.val() && (validate ? !validate() : false)) {
           this.invalid_reason = type;
         }
 
