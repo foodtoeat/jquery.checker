@@ -17,6 +17,11 @@
         this.$el.tooltip({
           title: $.proxy(this['tooltip_' + this.invalid_reason], this)()
         });
+        this.$el.data('bs.tooltip').options.template = 
+          '<div class="tooltip checker-invalid-tooltip">' +
+            '<div class="tooltip-inner">' +
+            '</div>' +
+          '</div>';
       },
       valid_callback: function() {
         this.$el.removeClass(this.invalid_class);
