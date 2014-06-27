@@ -12,16 +12,19 @@
   var
     defaults = {
       invalid_class: 'checker-invalid',
-      invalid_callback: function() {
-        this.$el.addClass(this.invalid_class);
-        this.$el.tooltip({
+      make_tooltip: function($el) {
+        $el.tooltip({
           title: $.proxy(this['tooltip_' + this.invalid_reason], this)()
         });
-        this.$el.data('bs.tooltip').options.template = 
+        $el.data('bs.tooltip').options.template = 
           '<div class="tooltip checker-invalid-tooltip">' +
             '<div class="tooltip-inner">' +
             '</div>' +
           '</div>';
+      },
+      invalid_callback: function() {
+        this.$el.addClass(this.invalid_class);
+        $.proxy(this.make_tooltip, this)(this.$el);
       },
       valid_callback: function() {
         this.$el.removeClass(this.invalid_class);
