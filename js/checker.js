@@ -103,7 +103,8 @@
         this.disabled = false;
         this.validate();
       },
-      disabled: false
+      disabled: false,
+      events: 'change'
     },
     Checker = function(element, opts) {
       var
@@ -124,7 +125,7 @@
     _init: function() {
       var self = this;
 
-      self.$el.on('change', function() {
+      self.$el.on(self.events, function() {
         $.proxy(self.validate, self)();
       });
 
