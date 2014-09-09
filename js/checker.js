@@ -23,12 +23,40 @@
           '</div>';
       },
       invalid_callback: function() {
-        this.$el.addClass(this.invalid_class);
-        $.proxy(this.make_tooltip, this)(this.$el);
+        var
+          select2 = this.$el.parent().find('select2-choices'),
+          select2_input = select2.find('input'),
+          is_select2 = select2.length;
+
+        if (is_select2) {
+          select2.addClass('select2-invalid');
+          select2_input.addClass('invalid');
+          select2_input.tooltip({
+            title: $.proxy(this['tooltip_' + this.invalid_reason], this)()
+          });
+          select2.tooltip({
+            title: $.proxy(this['tooltip_' + this.invalid_reason], this)()
+          });
+        } else {
+          this.$el.addClass(this.invalid_class);
+          $.proxy(this.make_tooltip, this)(this.$el);
+        }
       },
       valid_callback: function() {
-        this.$el.removeClass(this.invalid_class);
-        this.$el.tooltip('destroy');
+        var
+          select2 = this.$el.parent().find('select2-choices'),
+          select2_input = select2.find('input'),
+          is_select2 = select2.length;
+
+        if (is_select2) {
+          select2.removeClass('select2-invalid');
+          select2_input.removeClass('invalid');
+          select2_input.tooltip('destroy');
+          select2.tooltip('destroy');
+        } else {
+          this.$el.removeClass(this.invalid_class);
+          this.$el.tooltip('destroy');
+        }
       },
       validate: function() {
         var
