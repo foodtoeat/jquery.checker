@@ -120,7 +120,7 @@
         return 'This is not a routing number.'
       },
       validated_ein: function() {
-        return this.$el.val().match(/^[1-9]\d?-\d{7}$/);
+        return this.$el.val().match(/^[0-9]{2}\-?\d{7}$/);
       },
       tooltip_ein: function() {
         return 'This is not a valid EIN#';
