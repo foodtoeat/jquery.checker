@@ -119,6 +119,12 @@
       tooltip_routing_number: function() {
         return 'This is not a routing number.'
       },
+      validated_ein: function() {
+        return this.$el.val().match(/^[1-9]\d?-\d{7}$/);
+      },
+      tooltip_ein: function() {
+        return 'This is not a valid EIN#';
+      },
       tooltip_required: function() {
         return 'This is a required field.'
       },
