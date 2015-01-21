@@ -119,7 +119,7 @@
       tooltip_routing_number: function() {
         return 'This is not a routing number.'
       },
-      validated_ein: function() {
+      validate_ein: function() {
         return this.$el.val().match(/^[0-9]{2}\-?\d{7}$/);
       },
       tooltip_ein: function() {
